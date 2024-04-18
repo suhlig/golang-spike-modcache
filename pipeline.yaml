@@ -1,0 +1,12 @@
+jobs:
+  - name: run
+    plan:
+      - get: source
+      - task: go-run-with-caches
+        file: source/task.yml
+        input_mapping: { src: source }
+resources:
+  - name: source
+    type: git
+    source:
+      uri: https://github.com/suhlig/golang-spike-modcache.git
