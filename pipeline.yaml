@@ -2,6 +2,7 @@ jobs:
   - name: run
     plan:
       - get: source
+        trigger: true
       - task: go-run-with-caches
         file: source/task.yml
         input_mapping: { src: source }
