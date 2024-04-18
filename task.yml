@@ -1,0 +1,25 @@
+platform: linux
+image_resource:
+  type: docker-image
+  source: { repository: golang }
+inputs:
+  - name: src
+params:
+  GOCACHE: go-build-cache
+  GOMODCACHE: go-mod-cache
+caches:
+  - path: go-build-cache
+  - path: go-mod-cache
+run:
+  path: bash
+  args:
+    - -c
+    - |
+      GOCACHE=$(readlink -f $GOCACHE)
+      GOMODCACHE=$(readlink -f $GOMODCACHE)
+
+      cd src
+
+      du -hs $(go env GOCACHE GOMODCACHE)
+      go run .
+      du -hs $(go env GOCACHE GOMODCACHE)
